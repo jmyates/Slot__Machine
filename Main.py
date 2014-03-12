@@ -18,11 +18,11 @@ player1.payCredits(play)
 
 print 'You have ' + str(player1.credits) + ' credits'
 
-coke = Drinks(1, "coke")
-welchs = Drinks(2, "welchs")
-ibc = Drinks(10, "ibc")
-jolt = Drinks(50, "jolt")
-bawls = Drinks(100, "bawls")
+coke = Drinks(50, "coke")
+welchs = Drinks(75, "welchs")
+ibc = Drinks(100, "ibc")
+jolt = Drinks(125, "jolt")
+bawls = Drinks(200, "bawls")
 
 slot1 = Slot()
 for x in range (0, 5):
@@ -174,8 +174,39 @@ elif test2.getName() != test1.getName():
 		slot3.addDrink(bawls)
 		
 else:
-	print "Slot machine broken. Report to Jamie or Drink Admin"
+	print "Slot machine broken. Report this to Jamie or Drink Admin"
 	exit()
 	
 test3 = slot3.pickDrink()
 print test3.getName()
+
+if test1.getName() == test2.getName() and test1.getName() == test3.getName() and test1.getName() == "coke":
+	print "Congratulations you win 50 Credits!"
+	youwon = coke.getWinnings()
+	player1.winCredits(youwon)
+	
+elif test1.getName() == test2.getName() and test1.getName()== test3.getName() and test1.getName() == "welchs":
+	print "Congratulations you win 75 Credits!"
+	youwon = welchs.getWinnings()
+	player1.winCredits(youwon)
+	
+elif test1.getName() == test2.getName() and test1.getName() == test3.getName() and test1.getName() == "ibc":
+	print "Congratulations you win 100 Credits!"
+	youwon = ibc.getWinnings()
+	player1.winCredits(youwon)
+	
+	
+elif test1.getName() == test2.getName() and test1.getName() == test3.getName() and test1.getName() == "jolt":
+	print "Congratulations you win 125 Credits!"
+	youwon = jolt.getWinnings()
+	player1.winCredits(youwon)
+	
+elif test1.getName() == test2.getName() and test1.getName() == test3.getName() and test1.getName() == "bawls":
+	print "Congratulations you win 200 Credits!"
+	youwon = bawls.getWinnings()
+	player1.winCredits(youwon)
+	
+else:
+	print "I'm sorry, you have lost. Please play again another time"
+	
+print "You have " + str(player1.credits) + " credits"

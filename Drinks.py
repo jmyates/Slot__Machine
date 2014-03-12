@@ -6,3 +6,6 @@ class Drinks:
 	
 	def getName (self):
 		return self.name
+		
+	def getWinnings (self):
+		return self.winnings

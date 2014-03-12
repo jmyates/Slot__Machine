@@ -12,3 +12,6 @@ class Player:
 		else:
 			print 'Okay. Play another time'
 			sys.exit()
+
+	def winCredits (self, youwon):
+		self.credits = self.credits + youwon
