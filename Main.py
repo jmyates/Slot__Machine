@@ -6,6 +6,9 @@ import sys
 import re
 import os 
 import time
+import urllib2
+import simplejson
+import pwd
 
 ##Checks version of Python
 versionrunning = sys.version_info.major
@@ -16,9 +19,24 @@ if versionrunning != versionneeded:
 	exit()
 
 ##Gives name of player, and creates player object
-name = os.environ['USER']
+name = pwd.getpwuid(os.getuid()).pw_name
 print ("Hey there " + name)
-player1 = Player(name, 100)
+
+api = 'https://members.csh.rit.edu/~bencentra/webdrink/api/index.php?request=users/credits&api_key=APIKEY&uid='+name
+request = urllib2.Request(api)
+opener = urllib2.build_opener()
+file = opener.open(request)
+userdata = simplejson.load(file)
+##print userdata
+status = userdata.get('status')
+print status
+credits = userdata.get('data')
+if status == False or credits == 'false':
+	print 'You do not have access'
+	exit()
+
+
+player1 = Player(name, int(credits))
 
 print ('You have ' + str(player1.credits) + ' credits')
 ##Keeps program running until player's credits are less than 50
@@ -60,8 +78,8 @@ while 1==1 and player1.credits >= 50:
 	#For debugging
 	#print (len(slot1.Drinks))
 	
-	##Pauses 5 seconds for suspense
-	time.sleep(5)
+	##Pauses 2 seconds for suspense
+	time.sleep(2)
 	##Picks drink, assigns name, prints
 	test1 = slot1.pickDrink()
 	cprint (test1.getName(), test1.printName())
@@ -128,7 +146,7 @@ while 1==1 and player1.credits >= 50:
 		print ("Slot machine broken. Report to Jamie or Drink Admin")
 		exit()
 	
-	time.sleep(5)
+	time.sleep(2)
 	
 	##Picks drink, assigns name, prints
 	test2 = slot2.pickDrink()
@@ -209,7 +227,7 @@ while 1==1 and player1.credits >= 50:
 		print ("Slot machine broken. Report this to Jamie or Drink Admin")
 		exit()
 		
-		time.sleep(5)
+	time.sleep(2)
 	
 	##Picks drink, assigns name, prints
 	test3 = slot3.pickDrink()
