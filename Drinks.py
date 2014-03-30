@@ -11,15 +11,11 @@ class Drinks:
 	def getWinnings (self):
 		return self.winnings
 
-##Adds colors to drinks when printed		
+##Adds colors to drinks when printed
+
 	def printName(self):
-		if self.name == "coke":
-			return "red"
-		elif self.name == "welchs":
-			return "magenta"
-		elif self.name == "ibc":
-			return "blue"
-		elif self.name == "jolt":
-			return "green"
-		elif self.name == "bawls":
-			return "cyan"
+		#Make this a dictionary.  In the end it should say -JH
+		#return dictName[self.name]
+		#You should be able to explain why and how this works
+		drinkcolors = {'coke': 'red', 'welchs': 'magenta', 'ibc': 'blue', 'jolt': 'green', 'bawls': 'cyan'}
+		return drinkcolors[self.name]
