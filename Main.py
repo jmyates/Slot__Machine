@@ -27,7 +27,7 @@ if versionrunning != versionneeded:
 name = pwd.getpwuid(os.getuid()).pw_name
 print ("Hey there " + name)
 
-api = 'https://members.csh.rit.edu/~bencentra/webdrink/api/index.php?request=users/credits&api_key=APIKEY&uid='+name
+api = 'https://members.csh.rit.edu/~bencentra/webdrink/api/index.php?request=users/credits&api_key=&uid='+name
 request = urllib2.Request(api)
 opener = urllib2.build_opener()
 file = opener.open(request)
@@ -62,22 +62,21 @@ while player1.credits >= 50:
 	#Elimiate these duplicates with function in Player - JH XX
 	player1.printCredits()
 	
-	
-	#Dictionary allDrinks of drinkName - [[odds1, odds2, odds3], winMessage] - JH 
-	
-	dictcoke = {'odds1' : [5,4,3,2,1], 'odds2': [5,4,3,2,1], 'odds3' : [8,2,2,2,1], 'winMessage' : "You have won 50 credits"}
-	dictwelchs = {'odds1' : [5,4,3,2,1], 'odds2': [4,5,3,2,1], 'odds3' : [5,4,3,2,1], 'winMessage' : "You have won 75 credits"}
-	dictibc = {'odds1' : [5,4,3,2,1], 'odds2': [2,2,7,2,2], 'odds3' : [3,4,4,2,3], 'winMessage' : "You have won 100 credits"}
-	dictjolt = {'odds1' : [5,4,3,2,1], 'odds2': [2,2,2,7,2], 'odds3' : [1,2,3,4,3], 'winMessage' : "You have won 125 credits"}
-	dictbawls = {'odds1' : [5,4,3,2,1], 'odds2': [1,1,1,1,11], 'odds3' : [4,4,3,3,1], 'winMessage' : "You have won 200 credits"}
-	alldrink = {'coke': dictcoke, 'welchs': dictwelchs, 'ibc': dictibc, 'jolt': dictjolt, 'bawls': dictbawls}
-	
 	##Creates the 5 Drink objects
 	coke = Drinks(50, "coke")
 	welchs = Drinks(75, "welchs")
 	ibc = Drinks(100, "ibc")
 	jolt = Drinks(125, "jolt")
 	bawls = Drinks(200, "bawls")
+	
+	#Dictionary allDrinks of drinkName - [[odds1, odds2, odds3], winMessage] - JH 
+	
+	dictcoke = {'odds1' : [5,4,3,2,1], 'odds2': [5,4,3,2,1], 'odds3' : [8,2,2,2,1], 'winmessage' : "You have won 50 credits", 'drinkobj': coke}
+	dictwelchs = {'odds1' : [5,4,3,2,1], 'odds2': [4,5,3,2,1], 'odds3' : [5,4,3,2,1], 'winmessage' : "You have won 75 credits", 'drinkobj': welchs}
+	dictibc = {'odds1' : [5,4,3,2,1], 'odds2': [2,2,7,2,2], 'odds3' : [3,4,4,2,3], 'winmessage' : "You have won 100 credits", 'drinkobj': ibc}
+	dictjolt = {'odds1' : [5,4,3,2,1], 'odds2': [2,2,2,7,2], 'odds3' : [1,2,3,4,3], 'winmessage' : "You have won 125 credits", 'drinkobj': jolt}
+	dictbawls = {'odds1' : [5,4,3,2,1], 'odds2': [1,1,1,1,11], 'odds3' : [4,4,3,3,1], 'winmessage' : "You have won 200 credits", 'drinkobj': bawls}
+	alldrink = {'coke': dictcoke, 'welchs': dictwelchs, 'ibc': dictibc, 'jolt': dictjolt, 'bawls': dictbawls}
 
 	drinkarray = [coke, welchs, ibc, jolt, bawls]
 	
@@ -112,8 +111,11 @@ while player1.credits >= 50:
 	
 	##Creates third slot
 	slot3 = Slot()
-	makeSlot(test2.getName(), 'odds3', slot3)
-		
+	if test1 == test2:
+		makeSlot(test2.getName(), 'odds3', slot3)
+	else:
+		makeSlot('coke', 'odds1', slot3)
+	
 	time.sleep(1)
 	
 	##Picks drink, assigns name, prints
@@ -121,30 +123,9 @@ while player1.credits >= 50:
 	cprint (test3.getName(), test3.printName())
 
 	##Checks for three in a row, prints win/ loss statement, add credits to account
-	if test1.getName() == test2.getName() and test1.getName() == test3.getName() and test1.getName() == "coke":
-		print ("Congratulations you win 50 Credits!")
-		youwon = coke.getWinnings()
-		player1.winCredits(youwon)
-		
-	elif test1.getName() == test2.getName() and test1.getName()== test3.getName() and test1.getName() == "welchs":
-		print ("Congratulations you win 75 Credits!")
-		youwon = welchs.getWinnings()
-		player1.winCredits(youwon)
-		
-	elif test1.getName() == test2.getName() and test1.getName() == test3.getName() and test1.getName() == "ibc":
-		print ("Congratulations you win 100 Credits!")
-		youwon = ibc.getWinnings()
-		player1.winCredits(youwon)
-		
-		
-	elif test1.getName() == test2.getName() and test1.getName() == test3.getName() and test1.getName() == "jolt":
-		print ("Congratulations you win 125 Credits!")
-		youwon = jolt.getWinnings()
-		player1.winCredits(youwon)
-		
-	elif test1.getName() == test2.getName() and test1.getName() == test3.getName() and test1.getName() == "bawls":
-		print ("Congratulations you win 200 Credits!")
-		youwon = bawls.getWinnings()
+	if test1.getName() == test2.getName() and test1.getName() == test3.getName():
+		print alldrink[test1.getName()]['winmessage']
+		youwon = alldrink[test1.getName()]['drinkobj'].getWinnings()
 		player1.winCredits(youwon)
 		
 	else:
