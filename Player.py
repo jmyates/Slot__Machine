@@ -15,3 +15,7 @@ class Player:
 ##Funtion adding credits based on win
 	def winCredits (self, youwon):
 		self.credits = self.credits + youwon
+		
+#Make function to print the current credit string - JH
+	def printCredits (self):
+		print "You have " + str(self.credits) + " credits"
