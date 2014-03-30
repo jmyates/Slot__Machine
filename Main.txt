@@ -1,3 +1,0 @@
-from Slot import Slot
-from Objects import Objects
-from Player import Player
