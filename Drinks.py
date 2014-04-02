@@ -6,16 +6,25 @@ class Drinks:
 	
 ##Returns name of drink	
 	def getName (self):
+		"""
+		Purpose: Return drink name so it can be printed  
+		Returnn: Drink name
+		"""
 		return self.name
 ##Returns winning amount of Drink won		
 	def getWinnings (self):
+		"""
+		Purpose: Return drink credit value so it can be added to winnings amount
+		Returnn: Drink credit value
+		"""
 		return self.winnings
 
 ##Adds colors to drinks when printed
 
 	def printName(self):
-		#Make this a dictionary.  In the end it should say -JH
-		#return dictName[self.name]
-		#You should be able to explain why and how this works
-		drinkcolors = {'coke': 'red', 'welchs': 'magenta', 'ibc': 'blue', 'jolt': 'green', 'bawls': 'cyan'}
-		return drinkcolors[self.name]
+		"""
+		Purpose: Create a color for each drink when it is printed using a dictionary
+		Returnn: Color value in a string
+		"""
+		drink_colors = {'coke': 'red', 'welchs': 'magenta', 'ibc': 'blue', 'jolt': 'green', 'bawls': 'cyan'}
+		return drink_colors[self.name]
